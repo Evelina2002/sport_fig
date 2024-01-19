@@ -1,0 +1,50 @@
+{% macro render_table(table_name, relation, id) %}
+<p>
+    <b>{{table_name}} </b>
+</p>
+{% set n = len(relation) %}
+<table>
+        <tr>
+            {% for name in relation.dtypes.index %}
+                {% if name != id %}
+                    <th>{{name}}</th>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    <tbody>
+        {% for i in range(n) %}
+            <tr>
+                {% for name in relation.dtypes.index %}
+                    {% if name != id %}
+                    <td>
+                        {% if not relation.loc[i, name] %}
+                            <form action = '' method ="get">
+                                <input type="hidden" name = return value={{relation.loc[i, "book_reader_id"]}}>
+                                <input type="submit" value="Сдать">
+                            </form>
+                        {% else %}
+                            {{ relation.loc[i, name] }}
+                        {% endif %}
+                    </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endmacro %}
+
+{% macro render_select(data, field, selected_option) %}
+    <select>
+        {% set n = data|length %}
+        {% for i in range(n) %}
+            {% set option = data.loc[i, field] %}
+            {% if option == selected_option %}
+                <option selected value={{i}}>
+            {% else %}
+                <option value={{i}}>
+            {% endif %}
+                </option>
+        {% endfor %}
+    </select>
+{% endmacro %}

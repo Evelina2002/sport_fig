@@ -1,0 +1,79 @@
+/* меню страниц */
+.menu {
+    background-color: #f1f1f1;
+    box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.4);
+    width: 100%;
+}
+   
+.menu li {
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px;
+    color: #6f6d6d;
+}
+
+.menu a {
+    text-decoration: none; 
+    color: #6f6d6d;
+}
+
+.menu li:hover {
+    background-color: #77e9f8;
+    cursor: pointer;
+    color: #f8f8f8;
+}
+
+.menu ul {
+    padding: 0px;
+}
+   
+.active{
+    background-color: #77e9f8;
+    color: #f8f8f8;
+}
+
+.active a:visited{
+    color: #f8f8f8;
+}
+  
+.menu a:hover{
+    color: #f8f8f8;
+}
+
+.block {
+    padding: 10px 20px;
+}
+
+.flex {
+    display: flex;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.1);
+    
+}
+p {
+    padding: 0px 10px 5px 10px;
+    margin: 0px 10px 5px 10px;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.width85 {
+    width: 85%;
+}
+
+.width15 {
+    width: 15%;
+}
+
+.width50 {
+    width: 50%;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}

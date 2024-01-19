@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <title> Новый клиент </title>
+</head>
+<body>
+    <div class=menu>
+        <ul>
+            <li class = active><a href={{ url_for("new_reader")}}>Новый клиент</a></li>
+        </ul>
+    </div>
+    <div class=block>
+        <p>
+            <form action='{{url_for("index")}}' method ="get">
+                <input type="text" name="new_reader" />
+                <input type="submit" value="Добавить" />
+                <input type="submit" value="Вернуться" />
+            </form> 
+        </p>
+    </div>
+</body>
+</html>

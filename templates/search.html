@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <title> Поиск тренировки </title>
+    {% macro render_checkbox(relation, selected_list, name) %}
+        {% for i in range(relation|length) %}
+            {% set value = relation.loc[i, relation.dtypes.index[0]] %}
+            <div class="flex row">
+            <input 
+                type="checkbox" 
+                name="{{name}}" 
+                value="{{value}}" 
+                {% if value in selected_list %} checked="checked" {% endif %}
+            />{{value + " (" + relation.loc[i, relation.dtypes.index[1]]|string + ")"}}
+            </div>
+        {% endfor %}
+    {% endmacro %}
+
+    {% macro render_books(df_books) %}
+        {% for i in range(df_books|length) %}
+            <div class="flex column width50">
+                <p>Время: {{df_books.loc[i, "title"]}}</p>
+                <p>Тренеры: {{df_books.loc[i, "authors"]}}</p>
+                <p>Место проведения: {{df_books.loc[i, "genre_name"]}}</p>
+                <p>Тип тренировки: {{df_books.loc[i, "publisher_name"]}}</p>
+                <p>Количество: {{df_books.loc[i, "available_numbers"]}}</p>
+                <form action='{{url_for("index")}}' method ="get">
+                    <p>{{i}}</p>
+                    <input type="hidden" value="{{df_books.loc[i, 'book_id']}}" name="book">
+                    <input type="submit" value="Выбрать" {% if not df_books.loc[i, "available_numbers"] %} disabled="disabled" {% endif %}>
+                </form> 
+            </div> 
+        {% endfor %}
+    {% endmacro %}
+</head>
+<body>
+    <div class=menu>
+        <ul>
+            <li class = active><a href={{ url_for("search")}}>Поиск тренировки</a></li>
+        </ul>
+    </div>
+    <div class=block>
+        <p>
+            <form action='' method ="post">
+                <div class="flex row">
+                    <div class="flex column width15">
+                        <div class="flex column">
+                            <details><summary>Тренеры</summary>{{ render_checkbox(df_authors, selected_authors, "authors") }}</details>
+                            <details><summary>Место проведения</summary>{{ render_checkbox(df_genres, selected_genres, "genres")}}</details>
+                            <details><summary>Тип тренировки</summary>{{ render_checkbox(df_publishers, selected_publishers, "publishers")}}</details>
+                        </div>
+                        <input type="submit" value="Очистить" name="reset" />
+                        <input type="submit" value="Применить" name="confirm" />
+                    </div>
+                    <div class="flex column width85">
+                        <div class="flex column">
+                            <div class="block">
+                                {% if selected_authors %}
+                                    Тренеры: {{", ".join(selected_authors)}} <br>
+                                {% endif %}
+                                {% if selected_genres %}
+                                    Место проведения: {{", ".join(selected_genres)}} <br>
+                                {% endif %}
+                                {% if selected_publishers %}
+                                    Тип тренировки: {{", ".join(selected_publishers)}}
+                                {% endif %}
+                            </div>
+            </form>
+                            <div class="flex row wrap">
+                                {{ render_books(df_books) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            <form action='{{url_for("index")}}' method ="get">
+                <input type="submit" value="Не записываться на занятие" />
+            </form> 
+        </p>
+    </div>
+</body>
+</html>
